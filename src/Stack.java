@@ -1,11 +1,9 @@
-public class Stack {
-    Node first;
-    int size;
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdOut;
 
-    public Stack() {
-        first = null;
-        size = 0;
-    }
+public class Stack {
+    Node first = null;
+    int size = 0;
 
     private class Node {
         String value;
@@ -28,31 +26,22 @@ public class Stack {
         size++;
     }
 
-    public String pop() throws Exception {
-        if (isEmpty()) throw new Exception("Already empty");
-        Node oldFirst = first;
+    public String pop() {
+        String item = first.value;
         first = first.next;
         size--;
-        return oldFirst.value;
+        return item;
     }
 
     public static void main(String[] args) {
         Stack s = new Stack();
-        assert s.isEmpty();
-        s.push("a");
-        assert s.size() == 1;
-        assert !s.isEmpty();
-        String res = null;
-        try {
-            res = s.pop();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        assert res == "a";
-        try {
-            s.pop();
-        } catch (Exception e) {
-            e.printStackTrace();
+        while (!StdIn.isEmpty()) {
+            String w = StdIn.readString();
+            if (!w.equals("-")) s.push(w);
+            else {
+                String item = s.pop();
+                StdOut.print(item);
+            }
         }
     }
 }
