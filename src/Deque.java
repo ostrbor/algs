@@ -1,3 +1,5 @@
+import edu.princeton.cs.algs4.StdOut;
+
 import java.util.Iterator;
 import java.lang.IllegalArgumentException;
 import java.util.NoSuchElementException;
@@ -124,5 +126,8 @@ public class Deque<Item> implements Iterable<Item> {
 
         assert d.isEmpty();
 
+        d.addLast(2);
+        d.addFirst(1);
+        for (int itm : d) StdOut.println(itm);
     }
 }
