@@ -104,7 +104,7 @@ public class Deque<Item> implements Iterable<Item> {
 
     }
 
-    public ListIterator iterator() {
+    public java.util.Iterator<Item> iterator() {
         return new ListIterator();
     }
 

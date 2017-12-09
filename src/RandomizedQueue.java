@@ -52,7 +52,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return array[randIndex];
     }
 
-    public ArrayIterator iterator() {
+    public java.util.Iterator<Item> iterator() {
         return new ArrayIterator();
     }
 
