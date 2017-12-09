@@ -19,6 +19,7 @@ public class Deque<Item> implements Iterable<Item> {
     private class Node {
         Item value;
         Node next;
+        Node previous;
     }
 
     private class ListIterator implements Iterator<Item> {
@@ -29,7 +30,7 @@ public class Deque<Item> implements Iterable<Item> {
         }
 
         public Item next() {
-            if (current == null) throw new NoSuchElementException("Dequeue is empty");
+            if (!hasNext()) throw new NoSuchElementException("There is no next item");
             Item item = current.value;
             current = current.next;
             return item;
@@ -41,7 +42,7 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     public boolean isEmpty() {
-        return first == null;
+        return (first == null || last == null);
     }
 
     public int size() {
@@ -50,32 +51,54 @@ public class Deque<Item> implements Iterable<Item> {
 
     public void addFirst(Item item) {
         if (item == null) throw new IllegalArgumentException("Null value is illegal");
+
         Node oldFirst = first;
         first = new Node();
         first.value = item;
         first.next = oldFirst;
+        first.previous = null;
+
+        if (isEmpty()) last = first;
+        else oldFirst.previous = first;
         size++;
     }
 
     public void addLast(Item item) {
         if (item == null) throw new IllegalArgumentException("Null value is illegal");
+
         Node oldLast = last;
         last = new Node();
         last.value = item;
-        oldLast.next = last;
+        last.next = null;
+        last.previous = oldLast;
+
+        if (isEmpty()) first = last;
+        else oldLast.next = last;
         size++;
     }
 
     public Item removeFirst() {
         if (isEmpty()) throw new NoSuchElementException("Dequeue is empty");
+
         Node oldFirst = first;
         first = first.next;
+        if (isEmpty()) last = null;
+        else first.previous = null;
+
         size--;
         return oldFirst.value;
     }
 
     public Item removeLast() {
         if (isEmpty()) throw new NoSuchElementException("Dequeue is empty");
+
+        Node oldLast = last;
+        last = oldLast.previous;
+        if (isEmpty()) first = null;
+        else last.next = null;
+
+        size--;
+        return oldLast.value;
 
     }
 
@@ -84,6 +107,22 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     public static void main(String[] args) {
+        Deque<Integer> d = new Deque<>();
+        d.addFirst(1);
+        assert d.size() == 1;
+        assert !d.isEmpty();
+
+        d.addLast(2);
+        assert d.size() == 2;
+        assert !d.isEmpty();
+
+        int i = d.removeFirst();
+        assert i == 1;
+
+        int j = d.removeLast();
+        assert j == 2;
+
+        assert d.isEmpty();
 
     }
 }
