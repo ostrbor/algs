@@ -90,5 +90,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         r.enqueue(3);
         assert !r.isEmpty();
         for (int i : r) StdOut.println(i);
+        assert r.size() == 3;
+        StdOut.println(r.sample());
+        assert r.size() == 3;
     }
 }
