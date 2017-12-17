@@ -89,7 +89,13 @@ public class FastCollinearPoints {
 
         nullDuplicates(segs);
         LineSegment[] res = new LineSegment[lineSegmentIndex];
-        for (int i = 0; i < res.length; i++) res[i] = segs[i];
+        int tempCounter = 0;
+        for (int i = 0; i < segs.length; i++) {
+            if (segs[i] == null) continue;
+            else {
+                res[tempCounter++] = segs[i];
+            }
+        }
         return res;
     }
 
