@@ -49,6 +49,25 @@ public class BruteCollinearPoints {
         return new LineSegment(min, max);
     }
 
+    private void nullDuplicates(LineSegment[] segs) {
+        for (int i = 0; i < (segs.length - 1); i++) {
+            LineSegment ls = segs[i];
+            if (ls == null) continue;
+            String s = ls.toString();
+            for (int j = i + 1; j < segs.length; j++) {
+                LineSegment nextLs = segs[j];
+                if (nextLs == null) continue;
+                String nextS = nextLs.toString();
+                if (s.equals(nextS)) {
+                    lineSegmentIndex--;
+                    segs[j] = null;
+                }
+            }
+
+        }
+
+    }
+
     public LineSegment[] segments() {
         LineSegment[] segs = new LineSegment[pointsArray.length];
         for (int i = 0; i <= (pointsArray.length - numberOfPointsInLine); i++) {
@@ -65,6 +84,7 @@ public class BruteCollinearPoints {
             }
         }
 
+        nullDuplicates(segs);
         LineSegment[] res = new LineSegment[lineSegmentIndex];
         for (int i = 0; i < res.length; i++) res[i] = segs[i];
         return res;
