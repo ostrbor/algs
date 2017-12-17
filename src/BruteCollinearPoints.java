@@ -4,6 +4,7 @@ public class BruteCollinearPoints {
     private Point[] pointsArray;
     private Point[][] segments;
     private int numberOfPointsInLine = 4;
+    private int lineSegmentCounter = 0;
 
     public BruteCollinearPoints(Point[] points) {
         for (int k = 0; k < points.length; k++) {
@@ -17,11 +18,10 @@ public class BruteCollinearPoints {
             }
         }
         pointsArray = points;
-        segments = new Point[][];
     }
 
     public int numberOfSegments() {
-
+        return lineSegmentCounter;
     }
 
     private boolean isOnOneLine(Point[] p) {
@@ -47,7 +47,7 @@ public class BruteCollinearPoints {
     }
 
     public LineSegment[] segments() {
-        LineSegment[] segs;
+        LineSegment[] segs = new LineSegment[pointsArray.length];
         for (int i = 0; i <= (pointsArray.length - numberOfPointsInLine); i++) {
             for (int j = i + 1; j <= (pointsArray.length - numberOfPointsInLine + 1); j++) {
                 for (int k = i + 2; k <= (pointsArray.length - numberOfPointsInLine + 2); k++) {
@@ -55,11 +55,12 @@ public class BruteCollinearPoints {
                         Point[] p = {pointsArray[i], pointsArray[j], pointsArray[k], pointsArray[l]};
                         if (isOnOneLine(p)) {
                             LineSegment ls = calcLineSegment(p);
+                            segs[lineSegmentCounter++] = ls;
                         }
                     }
                 }
             }
         }
-
+        return segs;
     }
 }
