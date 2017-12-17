@@ -2,7 +2,6 @@ import java.lang.IllegalArgumentException;
 
 public class BruteCollinearPoints {
     private Point[] pointsArray;
-    private Point[][] segments;
     private int numberOfPointsInLine = 4;
     private int lineSegmentCounter = 0;
 

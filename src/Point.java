@@ -81,34 +81,35 @@ public class Point implements Comparable<Point> {
      * @return the Comparator that defines this ordering on points
      */
     public Comparator<Point> slopeOrder() {
-        class BySlope implements Comparator<Point> {
-            public int compare(Point first, Point second) {
-                double firstSlope = slopeTo(first);
-                double secondSlope = slopeTo(second);
-                return (int) (firstSlope - secondSlope);
-            }
-        }
         return new BySlope();
     }
 
-
-    /**
-     * Returns a string representation of this point.
-     * This method is provide for debugging;
-     * your program should not rely on the format of the string representation.
-     *
-     * @return a string representation of this point
-     */
-    public String toString() {
-        /* DO NOT MODIFY */
-        return "(" + x + ", " + y + ")";
+    private class BySlope implements Comparator<Point> {
+        public int compare(Point first, Point second) {
+            double firstSlope = slopeTo(first);
+            double secondSlope = slopeTo(second);
+            return (int) (firstSlope - secondSlope);
+        }
     }
 
-    /**
-     * Unit tests the Point data type.
-     */
-    public static void main(String[] args) {
-        /* YOUR CODE HERE */
+
+        /**
+         * Returns a string representation of this point.
+         * This method is provide for debugging;
+         * your program should not rely on the format of the string representation.
+         *
+         * @return a string representation of this point
+         */
+        public String toString() {
+            /* DO NOT MODIFY */
+            return "(" + x + ", " + y + ")";
+        }
+
+        /**
+         * Unit tests the Point data type.
+         */
+        public static void main(String[] args) {
+            /* YOUR CODE HERE */
+        }
     }
-}
 
