@@ -81,7 +81,13 @@ public class Point implements Comparable<Point> {
      * @return the Comparator that defines this ordering on points
      */
     public Comparator<Point> slopeOrder() {
-        /* YOUR CODE HERE */
+        class BySlope implements Comparator<Point> {
+            public int comare(Point first, Point second) {
+                double firstSlope = slopeTo(first);
+                double secondSlope = slopeTo(second);
+                return (int) (secondSlope - firstSlope);
+            }
+        }
     }
 
 
