@@ -24,7 +24,7 @@ public class BruteCollinearPoints {
     }
 
     public int numberOfSegments() {
-        return lineSegmentIndex + 1;
+        return lineSegmentIndex;
     }
 
     private boolean isOnOneLine(Point[] p) {
@@ -53,8 +53,8 @@ public class BruteCollinearPoints {
         LineSegment[] segs = new LineSegment[pointsArray.length];
         for (int i = 0; i <= (pointsArray.length - numberOfPointsInLine); i++) {
             for (int j = i + 1; j <= (pointsArray.length - numberOfPointsInLine + 1); j++) {
-                for (int k = i + 2; k <= (pointsArray.length - numberOfPointsInLine + 2); k++) {
-                    for (int l = i + 3; l <= (pointsArray.length - numberOfPointsInLine + 3); l++) {
+                for (int k = j + 1; k <= (pointsArray.length - numberOfPointsInLine + 2); k++) {
+                    for (int l = k + 1; l <= (pointsArray.length - numberOfPointsInLine + 3); l++) {
                         Point[] p = {pointsArray[i], pointsArray[j], pointsArray[k], pointsArray[l]};
                         if (isOnOneLine(p)) {
                             LineSegment ls = calcLineSegment(p);
@@ -65,7 +65,7 @@ public class BruteCollinearPoints {
             }
         }
 
-        LineSegment[] res = new LineSegment[lineSegmentIndex + 1];
+        LineSegment[] res = new LineSegment[lineSegmentIndex];
         for (int i = 0; i < res.length; i++) res[i] = segs[i];
         return res;
     }
@@ -92,7 +92,7 @@ public class BruteCollinearPoints {
         StdDraw.show();
 
         // print and draw the line segments
-        FastCollinearPoints collinear = new FastCollinearPoints(points);
+        BruteCollinearPoints collinear = new BruteCollinearPoints(points);
         for (LineSegment segment : collinear.segments()) {
             StdOut.println(segment);
             segment.draw();

@@ -25,7 +25,7 @@ public class FastCollinearPoints {
     }
 
     public int numberOfSegments() {
-        return lineSegmentIndex + 1;
+        return lineSegmentIndex;
     }
 
     private LineSegment calcLineSegment(Point[] points) {
@@ -46,7 +46,7 @@ public class FastCollinearPoints {
         for (int i = 0; i <= (pointsArray.length - numberOfPointsInLine); i++) {
             Point p = pointsArray[i];
             Arrays.sort(pointsArray, p.slopeOrder());
-            for (int j = i + 1; j < pointsArray.length; j++) {
+            for (int j = i + 1; j <= (pointsArray.length - numberOfPointsInLine + 1); j++) {
                 Point second = pointsArray[j];
                 Point third = pointsArray[j + 1];
                 Point fourth = pointsArray[j + 2];
@@ -58,7 +58,7 @@ public class FastCollinearPoints {
             }
         }
 
-        LineSegment[] res = new LineSegment[lineSegmentIndex + 1];
+        LineSegment[] res = new LineSegment[lineSegmentIndex];
         for (int i = 0; i < res.length; i++) res[i] = segs[i];
         return res;
     }
