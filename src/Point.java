@@ -82,12 +82,13 @@ public class Point implements Comparable<Point> {
      */
     public Comparator<Point> slopeOrder() {
         class BySlope implements Comparator<Point> {
-            public int comare(Point first, Point second) {
+            public int compare(Point first, Point second) {
                 double firstSlope = slopeTo(first);
                 double secondSlope = slopeTo(second);
-                return (int) (secondSlope - firstSlope);
+                return (int) (firstSlope - secondSlope);
             }
         }
+        return new BySlope();
     }
 
 
