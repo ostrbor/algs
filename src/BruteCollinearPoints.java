@@ -3,7 +3,7 @@ import java.lang.IllegalArgumentException;
 public class BruteCollinearPoints {
     private Point[] pointsArray;
     private int numberOfPointsInLine = 4;
-    private int lineSegmentCounter = 0;
+    private int lineSegmentIndex = 0;
 
     public BruteCollinearPoints(Point[] points) {
         for (int k = 0; k < points.length; k++) {
@@ -20,7 +20,7 @@ public class BruteCollinearPoints {
     }
 
     public int numberOfSegments() {
-        return lineSegmentCounter;
+        return lineSegmentIndex + 1;
     }
 
     private boolean isOnOneLine(Point[] p) {
@@ -54,12 +54,15 @@ public class BruteCollinearPoints {
                         Point[] p = {pointsArray[i], pointsArray[j], pointsArray[k], pointsArray[l]};
                         if (isOnOneLine(p)) {
                             LineSegment ls = calcLineSegment(p);
-                            segs[lineSegmentCounter++] = ls;
+                            segs[lineSegmentIndex++] = ls;
                         }
                     }
                 }
             }
         }
-        return segs;
+
+        LineSegment[] res = new LineSegment[lineSegmentIndex + 1];
+        for (int i = 0; i < res.length; i++) res[i] = segs[i];
+        return res;
     }
 }
