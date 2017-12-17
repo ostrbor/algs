@@ -1,7 +1,9 @@
 import java.lang.IllegalArgumentException;
 
 public class BruteCollinearPoints {
-    private Point[] points;
+    private Point[] pointsArray;
+    private Point[][] segments;
+    private int numberOfPointsInLine = 4;
 
     public BruteCollinearPoints(Point[] points) {
         for (int k = 0; k < points.length; k++) {
@@ -14,14 +16,50 @@ public class BruteCollinearPoints {
                 if (p.compareTo(q) == 0) throw new IllegalArgumentException("same points are not allowed");
             }
         }
-        points = points;
+        pointsArray = points;
+        segments = new Point[][];
     }
 
     public int numberOfSegments() {
 
     }
 
+    private boolean isOnOneLine(Point[] p) {
+        double slope = p[0].slopeTo(p[1]);
+        for (int i = 1; i < 3; i++) {
+            double nextSlope = p[i].slopeTo(p[i + 1]);
+            if (slope != nextSlope) return false;
+            else slope = nextSlope;
+        }
+        return true;
+    }
+
+    private LineSegment calcLineSegment(Point[] points) {
+        Point min = points[0];
+        for (int i = 1; i <= 3; i++) {
+            if (points[i].compareTo(min) < 0) min = points[i];
+        }
+        Point max = points[0];
+        for (int i = 1; i <= 3; i++) {
+            if (points[i].compareTo(max) > 0) max = points[i];
+        }
+        return new LineSegment(min, max);
+    }
+
     public LineSegment[] segments() {
+        LineSegment[] segs;
+        for (int i = 0; i <= (pointsArray.length - numberOfPointsInLine); i++) {
+            for (int j = i + 1; j <= (pointsArray.length - numberOfPointsInLine + 1); j++) {
+                for (int k = i + 2; k <= (pointsArray.length - numberOfPointsInLine + 2); k++) {
+                    for (int l = i + 3; l <= (pointsArray.length - numberOfPointsInLine + 3); l++) {
+                        Point[] p = {pointsArray[i], pointsArray[j], pointsArray[k], pointsArray[l]};
+                        if (isOnOneLine(p)) {
+                            LineSegment ls = calcLineSegment(p);
+                        }
+                    }
+                }
+            }
+        }
 
     }
 }
