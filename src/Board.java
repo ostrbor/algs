@@ -1,4 +1,5 @@
 import java.lang.IllegalArgumentException;
+import java.util.Arrays;
 
 public class Board {
     private final int[][] blocks;
@@ -26,17 +27,26 @@ public class Board {
     }
 
     public int hamming() {
-        return 0;
+        int dim = dimension();
+        int outOfPlace = 0;
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                if (blocks[i][j] != goal[i][j]) {
+                    outOfPlace++;
+                }
+            }
+        }
+        return outOfPlace;
     }
 
-    ;                   // number of blocks out of place
 
     public int manhattan() {
+        int distanceTotal = 0;
         return 0;
     }                 // sum of Manhattan distances between blocks and goal
 
     public boolean isGoal() {
-        return false;
+        return Arrays.deepEquals(blocks, goal);
     }                // is this board the goal board?
 
     public Board twin() {
@@ -64,6 +74,8 @@ public class Board {
     }               // string representation of this board (in the output format specified below)
 
     public static void main(String[] args) {
-
+        int[][] a = {{1, 2}, {3, 0}};
+        Board board = new Board(a);
+        assert board.isGoal();
     } // unit tests (not graded)
 }
