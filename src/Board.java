@@ -1,4 +1,8 @@
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdRandom;
+
 import java.lang.IllegalArgumentException;
+import java.util.Arrays;
 
 public class Board {
     private final int[][] blocks;
@@ -48,18 +52,49 @@ public class Board {
     }
 
     public boolean isGoal() {
-        if (hamming() == 0) return true;
-        else return false;
+        return hamming() == 0;
     }
 
-    public Board twin() {
-        int[][] twin = new int[0][0];
-        return new Board(twin);
-    }                    // a board that is obtained by exchanging any pair of blocks
 
-    public boolean equals(Object y) {
-        // TODO: check if it's correct
-        return this == y;
+    public Board twin() {
+        int rowNumber = blocks.length;
+        int colNumber = blocks[0].length;
+
+        int randRowIndex = StdRandom.uniform(rowNumber);
+        int randColIndex = StdRandom.uniform(colNumber);
+        int randomBlock = blocks[randRowIndex][randColIndex];
+
+        int randRowIndexPair;
+        int randColIndexPair;
+
+        do {
+            randRowIndexPair = StdRandom.uniform(rowNumber);
+            randColIndexPair = StdRandom.uniform(colNumber);
+        }
+        while ((randRowIndex == randRowIndexPair) && (randColIndex == randColIndexPair));
+
+        int randomBlockPair = blocks[randRowIndexPair][randColIndexPair];
+
+
+        int[][] newBlocks = new int[rowNumber][colNumber];
+        for (int i = 0; i < rowNumber; i++) {
+            for (int j = 0; j < colNumber; j++) {
+                newBlocks[i][j] = blocks[i][j];
+            }
+        }
+        newBlocks[randRowIndex][randColIndex] = randomBlockPair;
+        newBlocks[randRowIndexPair][randColIndexPair] = randomBlock;
+
+        return new Board(newBlocks);
+    }
+
+    public boolean equals(Object other) {
+        if (other == this) return true;
+        if (other == null) return false;
+        if (other.getClass() != this.getClass()) return false;
+        Board that = (Board) other;
+
+        return Arrays.deepEquals(this.blocks, that.blocks);
     }
 
 //    public Iterable<Board> neighbors()     // all neighboring boards
@@ -125,5 +160,14 @@ public class Board {
                 {7, 8, 1}};
         Board board5 = new Board(c3);
         assert 4 == board5.manhattan();
+
+        int[][] d = {
+                {1, 2, 3},
+                {4, 5, 6},
+                {7, 8, 0}};
+        Board board1 = new Board(d);
+        Board boardTwin = board1.twin();
+        StdOut.print(boardTwin);
     }
 }
+
