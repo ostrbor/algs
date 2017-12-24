@@ -1,3 +1,4 @@
+import edu.princeton.cs.algs4.Stack;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
@@ -97,7 +98,30 @@ public class Board {
         return Arrays.deepEquals(this.blocks, that.blocks);
     }
 
-//    public Iterable<Board> neighbors()     // all neighboring boards
+    public Iterable<Board> neighbors() {
+        Stack<Board> stack = new Stack<>();
+
+        int blankRow = -1;
+        int blankCol = -1;
+        boolean found = false;
+        for (int i = 0; i < blocks.length; i++) {
+            for (int j = 0; j < blocks[0].length; j++) {
+                if (blocks[i][j] == 0) {
+                    blankRow = i;
+                    blankCol = j;
+                    found = true;
+                    break;
+                }
+            }
+            if (found) break;
+        }
+
+        if (blankRow == 0) {
+
+        }
+
+        return stack;
+    }
 
     public String toString() {
         String blocksRepresentation = "";
