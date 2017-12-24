@@ -1,3 +1,5 @@
+import edu.princeton.cs.algs4.StdOut;
+
 import java.lang.IllegalArgumentException;
 import java.util.Arrays;
 
@@ -65,9 +67,9 @@ public class Board {
         for (int i = 0; i < blocks.length; i++) {
             for (int j = 0; j < blocks[i].length; j++) {
                 String blockValue = String.format("%d ", blocks[i][j]);
-                blocksRepresentation.concat(blockValue);
+                blocksRepresentation = blocksRepresentation.concat(blockValue);
             }
-            blocksRepresentation.concat("%n");
+            blocksRepresentation = blocksRepresentation.concat("\n");
         }
         String dim = String.format("%d%n", dimension());
         return dim.concat(blocksRepresentation);
@@ -77,5 +79,6 @@ public class Board {
         int[][] a = {{1, 2}, {3, 0}};
         Board board = new Board(a);
         assert board.isGoal();
+        System.out.print(board);
     } // unit tests (not graded)
 }
