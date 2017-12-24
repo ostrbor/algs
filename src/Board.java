@@ -80,5 +80,9 @@ public class Board {
         Board board = new Board(a);
         assert board.isGoal();
         System.out.print(board);
+
+        int[][] b = {{1,3}, {3,0}};
+        Board board1 = new Board(b);
+        assert 1 == board1.hamming();
     } // unit tests (not graded)
 }
